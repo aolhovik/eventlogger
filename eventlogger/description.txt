@@ -1,0 +1,64 @@
+﻿Programming Exercise
+
+
+1. General Description
+
+
+The goal of this exercise is to design and implement a Security Event Logging System.
+The system receives events from event producing sources and dispatches the events to relevant subscribers.
+The system is comprised of a Logging Server, Event Producers, and Event Subscribers.
+In the real world an Event Producer could be an entity that gets Security Events from a device, and sends them to the Logging Server.
+The Logging Server could be an entity that receives Security Events via different communication layers from multiple sources simultaneously and dispatches them simultaneously to multiple Event Subscribers.
+An Event Subscriber could be an entity that receives Security Events from the Logging Server and further processes them (e.g. presents alerts to a user, writes events data to a log file, or inserts events data to a designated database).
+
+
+2. Detailed Specification
+
+
+The Security Event
+Security Events are produced by different kinds of detectors: door detectors, fire detectors, smart fence detectors, video motion detectors, etc.
+Each Security Event is comprised of a set of fields – Detector Type, Detector ID, Event Description, and Physical Location (code or description).
+Security Events from different detector types can contain different additional detector-specific fields, for example event type, event severity, etc.
+
+
+Event Producer
+Event producers are standalone modules (standalone application on a dedicated computer) that are connected to detectors and can produce events of different detector types and subsequently send them to the Logging Server.
+An Event Producer should be able to communicate with the Logging Server via some communication layer that is exposed by the Logging Server
+
+
+The Logging Server
+The Logging Server is a standalone module (standalone application on a dedicated computer) that receives events from different Event Producers and sends them to the registered Event Subscribers.
+The Logging Server should be able to expose different communication layers for Security Events receiving.
+The system should take into account the following design constraints:
+1. The Logging Server should be able to support a high load of Security Events, resources consumption (number of threads, etc.) should not be limitless
+2. All Event Producers and Event Subscribers may work in parallel
+3. Different Event Subscribers may work at different pace, one should not limit the other
+4. Real-time response is critical - it is not acceptable for an Event Producer or an Event Subscriber to be blocked by another Event Producer or Event Subscriber.
+5. The design should follow a loosely-coupled architecture – allowing easy changing and expanding of modules
+
+
+Event Subscribers
+Event Subscribers are components that are executed within the Logging Server itself.
+Each Event Subscriber should be able to register to receive Security Events of specific detector types. The Logging Server should route to it only Security Events from these Detector Types.
+________________
+3. Mission
+
+
+Design & Presentation
+Design and present the Logging System.
+The design should include a detailed class/entities/modules diagram.
+
+
+Implementation
+For the implementation part, you will be presented with a pre-built extendible framework of a Logging System.
+Following an explanation on how to use that framework, you will need to implement parts of the Logging System under that framework.
+Some of the implementation may be in C# and some in C++.
+You may use the documentation available in the installed MSDN and/or online documentation.
+
+
+Additional notes:
+1. In this exercise, the Event Producers are only simulators of such entities - an application that randomly creates Security Events and sends them to the Logging Server
+2. Under the pre-built framework, there is no need to support subscriber registration for specific detector types – all Security Events should be routed to all the registered Event Subscribers
+3. At the end of the exercise you should be able to demonstrate a successful build, execution and structured termination of any executable program you’ve created
+4. Performance issues and resource consumption should be considered during implementation
+5. For testing and load purposes of the Logging Server, some of the Event Producers might be executed within the Logging Server itself
