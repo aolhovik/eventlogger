@@ -1,1 +1,4 @@
-/Debug/
+!/Debug/*.mk
+/Debug/*.o
+/Debug/*.d
+/Debug/eventlogger
