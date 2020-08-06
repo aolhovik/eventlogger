@@ -21,7 +21,7 @@ LoggingServer::instance ()
   return *_pInstance;
 }
 
-LoggingServer::LoggingServer (): _iSleepTime(250), _IdLastUsed(0)
+LoggingServer::LoggingServer (): _iSleepTime(250)
 {
 }
 
@@ -53,40 +53,20 @@ LoggingServer::unsubscribe (Subscriber *pSub)
 }
 
 void
-LoggingServer::notify (Event::t_Ptr &ptr)
+LoggingServer::notify (Event::t_Ptr ptr)
 {
   for (auto s : _Subs)
     {
-      s->notify (ptr);
+      s->update (ptr);
     }
-}
-
-void
-LoggingServer::post (Event::t_Ptr ptr)
-{
-//  Stacktracer ("LoggingServer::post");
-
-  std::lock_guard<std::mutex> GuardEvents(_MutexEvents);
-  // FIXME: we want events id to be unique across all producers
-  _IdLastUsed++;
-  ptr->id = _IdLastUsed;
-  _Events.push (ptr);
 }
 
 int
 LoggingServer::onIdle ()
 {
-  while (!_Events.empty ())
+  while (!isEmpty())
     {
-      Event::t_Ptr ptr;
-	{
-	  std::lock_guard<std::mutex> GuardEvents (_MutexEvents);
-	  ptr = _Events.front ();
-	  _Events.pop ();
-	}
-
-      notify (ptr);
+      notify (pop());
     }
-
   return _iSleepTime;
 }

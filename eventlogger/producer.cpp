@@ -1,25 +1,9 @@
 #include "producer.h"
 #include "loggingServer.h"
 #include "stacktracer.h"
+#include "random.h"
 
-#include <cstdlib>
-#include <cassert>
 #include <limits>
-
-namespace utils {
-
-  unsigned int random(unsigned int iMin, unsigned iMax)
-  {
-    assert(iMax > iMin);
-    return iMin + rand() % (iMax - iMin);
-  }
-
-  unsigned int random(unsigned iMax)
-  {
-     return random(0, iMax);
-  }
-}
-
 
 Producer::Producer (LoggingServer *pSrv) :
     _srv (pSrv)
@@ -35,7 +19,7 @@ Producer::onIdle ()
 {
   if (_srv != nullptr)
     {
-      _srv->post (produceEvent ());
+      _srv->push (produceEvent ());
     }
 
   return utils::random(100, 250);

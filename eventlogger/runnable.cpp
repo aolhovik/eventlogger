@@ -70,9 +70,3 @@ Runnable::getState () const
 {
   return _State;
 }
-
-//void
-//Runnable::join()
-//{
-//  _Thread.join();
-//}
