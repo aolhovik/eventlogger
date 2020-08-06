@@ -1,31 +1,26 @@
-
 #include "subscriber.h"
 #include "random.h"
 
 #include <iostream>
 
-Subscriber::Subscriber(t_id id, LoggingServer* pSrv) : _srv(pSrv), _id(id)
-{}
+Subscriber::Subscriber(t_id id, LoggingServer *pSrv) :
+		_srv(pSrv), _id(id) {
+}
 
-Subscriber::~Subscriber()
-{}
+Subscriber::~Subscriber() {
+}
 
-void Subscriber::update(Event::t_Ptr ptr)
-{
+void Subscriber::update(Event::t_Ptr ptr) {
 	push(ptr);
 }
 
-Subscriber::t_id
-Subscriber::getId() const
-{
-  return _id;
-};
+Subscriber::t_id Subscriber::getId() const {
+	return _id;
+}
+;
 
-int
-Subscriber::onIdle()
-{
-	while(!isEmpty())
-	{
+int Subscriber::onIdle() {
+	while (!isEmpty()) {
 		Event::t_Ptr ptr = pop();
 		std::cout << "Subsciber: id=" << getId() << "; Event: " << *ptr;
 	}

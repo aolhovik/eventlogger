@@ -9,8 +9,7 @@
 #include <list>
 #include <queue>
 
-class LoggingServer: public Runnable, public EventProcessor
-{
+class LoggingServer: public Runnable, public EventProcessor {
 public:
 	void subscribe(Subscriber*);
 	void unsubscribe(Subscriber*);

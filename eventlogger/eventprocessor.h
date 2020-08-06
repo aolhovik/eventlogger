@@ -1,4 +1,3 @@
-
 #ifndef EVENTPROCESSOR_H_
 #define EVENTPROCESSOR_H_
 
@@ -7,8 +6,7 @@
 #include <queue>
 #include <mutex>
 
-class EventProcessor
-{
+class EventProcessor {
 public:
 	/// posts an event to be processed at a later time
 	void push(Event::t_Ptr);

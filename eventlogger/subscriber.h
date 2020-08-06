@@ -8,11 +8,10 @@
 class LoggingServer;
 
 /// Base class for the Event Subscribers.
-class Subscriber: public Runnable, public EventProcessor
-{
+class Subscriber: public Runnable, public EventProcessor {
 public:
 	typedef unsigned int t_id;
-	Subscriber(t_id id,LoggingServer*);
+	Subscriber(t_id id, LoggingServer*);
 
 	virtual void update(Event::t_Ptr ptr);
 
